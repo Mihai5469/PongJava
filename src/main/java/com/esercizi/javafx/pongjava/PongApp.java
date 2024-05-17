@@ -86,17 +86,17 @@ public class PongApp extends GameApplication {
         });
 
 
-        physics.addCollisionHandler(new CollisionHandler(OgettiGioco.palina, OgettiGioco.wallLEFT) {
+        physics.addCollisionHandler(new CollisionHandler(OgettiGioco.palina, OgettiGioco.wall) {
             @Override
             protected void onCollisionBegin(Entity wallL, Entity palina) {
                 direzionePalinaVe *= -1;
             }
         });
 
-        physics.addCollisionHandler(new CollisionHandler(OgettiGioco.wallRIGHT, OgettiGioco.palina) {
+        physics.addCollisionHandler(new CollisionHandler(OgettiGioco.enemy, OgettiGioco.wall) {
             @Override
-            protected void onCollisionBegin(Entity wallR, Entity palina) {
-                direzionePalinaVe *= -1;
+            protected void onCollisionBegin(Entity enemy, Entity wall) {
+                enemy.translateX(-50);
             }
         });
 

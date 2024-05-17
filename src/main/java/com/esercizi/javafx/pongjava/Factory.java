@@ -49,7 +49,7 @@ public class Factory implements EntityFactory {
     public Entity newWallL(SpawnData data){
         return FXGL.entityBuilder()
                 .at(0, 0)
-                .type(OgettiGioco.wallLEFT)
+                .type(OgettiGioco.wall)
                 .viewWithBBox( new Rectangle(10, FXGL.getAppHeight()))
                 .collidable()
                 .build();
@@ -59,7 +59,7 @@ public class Factory implements EntityFactory {
     public Entity newWallR(SpawnData data){
         return FXGL.entityBuilder()
                 .at(FXGL.getAppWidth()-10, 0)
-                .type(OgettiGioco.wallRIGHT)
+                .type(OgettiGioco.wall)
                 .viewWithBBox( new Rectangle(10, FXGL.getAppHeight()))
                 .collidable()
                 .build();
