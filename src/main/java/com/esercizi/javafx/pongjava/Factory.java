@@ -45,10 +45,21 @@ public class Factory implements EntityFactory {
                 .build();
     }
 
-    @Spawns("wall")
-    public Entity newWall(SpawnData data){
+    @Spawns("wallL")
+    public Entity newWallL(SpawnData data){
         return FXGL.entityBuilder()
-                .type(OgettiGioco.wall)
+                .at(0, 0)
+                .type(OgettiGioco.wallLEFT)
+                .viewWithBBox( new Rectangle(10, FXGL.getAppHeight()))
+                .collidable()
+                .build();
+    }
+
+    @Spawns("wallR")
+    public Entity newWallR(SpawnData data){
+        return FXGL.entityBuilder()
+                .at(FXGL.getAppWidth()-10, 0)
+                .type(OgettiGioco.wallRIGHT)
                 .viewWithBBox( new Rectangle(10, FXGL.getAppHeight()))
                 .collidable()
                 .build();

@@ -12,13 +12,17 @@ import javafx.util.Duration;
 
 import static com.almasb.fxgl.dsl.FXGLForKtKt.*;
 
+
+//TODO devo fissare il bug che fa andare il giovatore fuori dal campo
+
 public class PongApp extends GameApplication {
     private Entity player;
     private Entity palina;
     private int direzionePalina = 5;
-    private int direzionePalinaVe = -3;
+    private int direzionePalinaVe = 3;
     private Entity enemy;
-    private Entity wallR, wallL;
+    private Entity wallR;
+    private Entity wallL;
 
     @Override
     protected void initSettings(GameSettings gameSettings) {
@@ -35,8 +39,8 @@ public class PongApp extends GameApplication {
         player = FXGL.spawn("player");
         palina = FXGL.spawn("palina");
         enemy = FXGL.spawn("enemy");
-        wallL = FXGL.spawn("wall", 0, 0);
-        wallR = FXGL.spawn("wall", 750, 0);
+        wallL = FXGL.spawn("wallL");
+        wallR = FXGL.spawn("wallR");
 
         getGameTimer().runAtInterval(()->{
             palina.translateY(direzionePalina);
@@ -81,10 +85,17 @@ public class PongApp extends GameApplication {
             }
         });
 
-        //TODO devo fare in modo che la palina rimbalzi lateralmente
-        physics.addCollisionHandler(new CollisionHandler(OgettiGioco.palina, OgettiGioco.wall) {
+
+        physics.addCollisionHandler(new CollisionHandler(OgettiGioco.palina, OgettiGioco.wallLEFT) {
             @Override
-            protected void onCollisionBegin(Entity wall, Entity palina) {
+            protected void onCollisionBegin(Entity wallL, Entity palina) {
+                direzionePalinaVe *= -1;
+            }
+        });
+
+        physics.addCollisionHandler(new CollisionHandler(OgettiGioco.wallRIGHT, OgettiGioco.palina) {
+            @Override
+            protected void onCollisionBegin(Entity wallR, Entity palina) {
                 direzionePalinaVe *= -1;
             }
         });

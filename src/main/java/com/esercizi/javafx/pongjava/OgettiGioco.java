@@ -1,5 +1,5 @@
 package com.esercizi.javafx.pongjava;
 
 public enum OgettiGioco {
-    palina, player, enemy, wall;
+    palina, player, enemy, wallLEFT, wallRIGHT;
 }
