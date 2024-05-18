@@ -7,7 +7,6 @@ import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.physics.CollisionHandler;
 import com.almasb.fxgl.physics.PhysicsWorld;
 import javafx.scene.input.KeyCode;
-import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 import static com.almasb.fxgl.dsl.FXGLForKtKt.*;
@@ -18,8 +17,8 @@ import static com.almasb.fxgl.dsl.FXGLForKtKt.*;
 public class PongApp extends GameApplication {
     private Entity player;
     private Entity palina;
-    private int direzionePalina = 5;
-    private int direzionePalinaVe = 3;
+    private int direzionePalinaVe = 5;
+    private int direzionePalinaOr = 3;
     private Entity enemy;
     private Entity wallR;
     private Entity wallL;
@@ -43,17 +42,16 @@ public class PongApp extends GameApplication {
         wallR = FXGL.spawn("wallR");
 
         getGameTimer().runAtInterval(()->{
-            palina.translateY(direzionePalina);
-            //System.out.println(FXGL.getAppWidth())
+            palina.translateY(direzionePalinaVe);
 
 
 
 
-            palina.translateX(direzionePalinaVe);
+            palina.translateX(direzionePalinaOr);
 
             enemy.setX(palina.getX()-50);
 
-            }, Duration.millis(16));
+            }, Duration.millis(3));
     }
 
     @Override
@@ -66,6 +64,9 @@ public class PongApp extends GameApplication {
         });
     }
 
+
+
+
     @Override
     protected void initPhysics(){
         PhysicsWorld physics = FXGL.getPhysicsWorld();
@@ -74,14 +75,14 @@ public class PongApp extends GameApplication {
         physics.addCollisionHandler(new CollisionHandler(OgettiGioco.player, OgettiGioco.palina) {
             @Override
             protected void onCollisionBegin(Entity player, Entity palina) {
-                direzionePalina *= -1;
+                direzionePalinaVe *= -1;
             }
         });
 
         physics.addCollisionHandler(new CollisionHandler(OgettiGioco.enemy, OgettiGioco.palina) {
             @Override
             protected void onCollisionBegin(Entity enemy, Entity palina) {
-                direzionePalina *= -1;
+                direzionePalinaVe *= -1;
             }
         });
 
@@ -89,16 +90,19 @@ public class PongApp extends GameApplication {
         physics.addCollisionHandler(new CollisionHandler(OgettiGioco.palina, OgettiGioco.wall) {
             @Override
             protected void onCollisionBegin(Entity wallL, Entity palina) {
-                direzionePalinaVe *= -1;
+                direzionePalinaOr *= -1;
             }
         });
 
+        /*
         physics.addCollisionHandler(new CollisionHandler(OgettiGioco.enemy, OgettiGioco.wall) {
             @Override
             protected void onCollisionBegin(Entity enemy, Entity wall) {
                 enemy.translateX(-50);
             }
         });
+
+         */
 
 
     }
