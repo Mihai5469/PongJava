@@ -11,7 +11,6 @@ import javafx.scene.shape.Rectangle;
 
 public class Factory implements EntityFactory {
 
-
     @Spawns("player")
     public Entity newPlayer(SpawnData data){
         return FXGL.entityBuilder(data)
@@ -21,8 +20,6 @@ public class Factory implements EntityFactory {
                 .collidable()
                 .build();
     }
-
-
 
 
     @Spawns("palina")
@@ -43,23 +40,13 @@ public class Factory implements EntityFactory {
                 .build();
     }
 
-    @Spawns("wallL")
+    @Spawns("wall")
     public Entity newWallL(SpawnData data){
         return FXGL.entityBuilder(data)
                 .type(OgettiGioco.wall)
-                .viewWithBBox( new Rectangle(10, FXGL.getAppHeight()))
+                .viewWithBBox( new Rectangle(10, FXGL.getAppHeight()+10))
                 .collidable()
                 .build();
     }
-
-    @Spawns("wallR")
-    public Entity newWallR(SpawnData data){
-        return FXGL.entityBuilder(data)
-                .type(OgettiGioco.wall)
-                .viewWithBBox( new Rectangle(10, FXGL.getAppHeight()))
-                .collidable()
-                .build();
-    }
-
 
 }
