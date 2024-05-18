@@ -6,6 +6,7 @@ import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.physics.CollisionHandler;
 import com.almasb.fxgl.physics.PhysicsWorld;
+import com.almasb.fxgl.ui.UI;
 import javafx.scene.input.KeyCode;
 import javafx.util.Duration;
 
@@ -41,8 +42,8 @@ public class PongApp extends GameApplication {
         player = FXGL.spawn("player", FXGL.getAppWidth()/2-50, FXGL.getAppHeight() -20);
         palina = FXGL.spawn("palina", FXGL.getAppWidth()/2, FXGL.getAppHeight()/2);
         enemy = FXGL.spawn("enemy" ,FXGL.getAppWidth()/2-50, 10);
-        wallL = FXGL.spawn("wallL", 0, 0);  //muro sinistro
-        wallR = FXGL.spawn("wallR", FXGL.getAppWidth()-10, 0); // muro destro
+        wallL = FXGL.spawn("wall", 0, 0);  //muro sinistro
+        wallR = FXGL.spawn("wall", FXGL.getAppWidth()-10, 0); // muro destro
 
         getGameTimer().runAtInterval(()->{
             palina.translateY(direzionePalinaVe);
@@ -67,14 +68,15 @@ public class PongApp extends GameApplication {
 
 
         FXGL.onKey(KeyCode.A, () -> {
-          player.translateX(-5);
+            if(player.getX() > 10) {
+                player.translateX(-5);
+            }
         });
         FXGL.onKey(KeyCode.D, () -> {
-            player.translateX(5);
+            if(player.getX() < FXGL.getAppWidth()-110) {
+                player.translateX(5);
+            }
         });
-
-
-
 
     }
 
@@ -120,6 +122,8 @@ public class PongApp extends GameApplication {
 
 
     }
+
+
 
     public static void main(String[] args) {
         launch(args);
