@@ -14,10 +14,10 @@ public class Factory implements EntityFactory {
 
     @Spawns("player")
     public Entity newPlayer(SpawnData data){
-        return FXGL.entityBuilder()
+        return FXGL.entityBuilder(data)
                 .type(OgettiGioco.player)
-                .at(FXGL.getAppWidth() /2 -50, FXGL.getAppHeight()-20)
                 .viewWithBBox(new Rectangle(100, 10, Color.BLUE))
+                //.with(new PlayerComponent())
                 .collidable()
                 .build();
     }
@@ -27,9 +27,8 @@ public class Factory implements EntityFactory {
 
     @Spawns("palina")
     public Entity newPalina(SpawnData data){
-        return FXGL.entityBuilder()
+        return FXGL.entityBuilder(data)
                 .type(OgettiGioco.palina)
-                .at(FXGL.getAppWidth()/2,FXGL.getAppHeight()/2)
                 .collidable()
                 .viewWithBBox(new Circle(10, 10, 10, Color.RED))
                 .build();
@@ -37,9 +36,8 @@ public class Factory implements EntityFactory {
 
     @Spawns("enemy")
     public Entity newEnemy(SpawnData data){
-        return FXGL.entityBuilder()
+        return FXGL.entityBuilder(data)
                 .type(OgettiGioco.enemy)
-                .at(FXGL.getAppWidth() /2 - 50, 10)
                 .viewWithBBox(new Rectangle(100, 10, Color.BLUE))
                 .collidable()
                 .build();
@@ -47,8 +45,7 @@ public class Factory implements EntityFactory {
 
     @Spawns("wallL")
     public Entity newWallL(SpawnData data){
-        return FXGL.entityBuilder()
-                .at(0, 0)
+        return FXGL.entityBuilder(data)
                 .type(OgettiGioco.wall)
                 .viewWithBBox( new Rectangle(10, FXGL.getAppHeight()))
                 .collidable()
@@ -57,8 +54,7 @@ public class Factory implements EntityFactory {
 
     @Spawns("wallR")
     public Entity newWallR(SpawnData data){
-        return FXGL.entityBuilder()
-                .at(FXGL.getAppWidth()-10, 0)
+        return FXGL.entityBuilder(data)
                 .type(OgettiGioco.wall)
                 .viewWithBBox( new Rectangle(10, FXGL.getAppHeight()))
                 .collidable()

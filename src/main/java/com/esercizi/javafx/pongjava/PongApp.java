@@ -22,6 +22,7 @@ public class PongApp extends GameApplication {
     private Entity enemy;
     private Entity wallR;
     private Entity wallL;
+    private int score = 0;
 
     @Override
     protected void initSettings(GameSettings gameSettings) {
@@ -35,33 +36,46 @@ public class PongApp extends GameApplication {
     protected void initGame(){
         FXGL.getGameWorld().addEntityFactory(new Factory());
 
-        player = FXGL.spawn("player");
-        palina = FXGL.spawn("palina");
-        enemy = FXGL.spawn("enemy");
-        wallL = FXGL.spawn("wallL");
-        wallR = FXGL.spawn("wallR");
+        //player2.addComponent(new PlayerComponent());
+
+        player = FXGL.spawn("player", FXGL.getAppWidth()/2-50, FXGL.getAppHeight() -20);
+        palina = FXGL.spawn("palina", FXGL.getAppWidth()/2, FXGL.getAppHeight()/2);
+        enemy = FXGL.spawn("enemy" ,FXGL.getAppWidth()/2-50, 10);
+        wallL = FXGL.spawn("wallL", 0, 0);  //muro sinistro
+        wallR = FXGL.spawn("wallR", FXGL.getAppWidth()-10, 0); // muro destro
 
         getGameTimer().runAtInterval(()->{
             palina.translateY(direzionePalinaVe);
 
-
-
-
+            //Controllo posizione palina
+            if(palina.getY() > FXGL.getAppHeight()){
+                score += 1;
+                System.out.println("Il punteggio e : " +score);
+                palina.setX(FXGL.getAppWidth()/2);
+                palina.setY(FXGL.getAppHeight()/2);
+            }
             palina.translateX(direzionePalinaOr);
-
-            enemy.setX(palina.getX()-50);
+            if(palina.getX() >= 50 && palina.getX() <= FXGL.getAppWidth()-50) {
+                enemy.setX(palina.getX() - 50);
+            }
 
             }, Duration.millis(3));
     }
 
     @Override
     protected void initInput(){
+
+
         FXGL.onKey(KeyCode.A, () -> {
           player.translateX(-5);
         });
         FXGL.onKey(KeyCode.D, () -> {
             player.translateX(5);
         });
+
+
+
+
     }
 
 
