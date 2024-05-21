@@ -6,14 +6,11 @@ import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.physics.CollisionHandler;
 import com.almasb.fxgl.physics.PhysicsWorld;
-import com.almasb.fxgl.ui.UI;
 import javafx.scene.input.KeyCode;
 import javafx.util.Duration;
 
 import static com.almasb.fxgl.dsl.FXGLForKtKt.*;
 
-
-//TODO devo fissare il bug che fa andare il giovatore fuori dal campo
 
 public class PongApp extends GameApplication {
     private Entity player;
@@ -88,37 +85,22 @@ public class PongApp extends GameApplication {
         PhysicsWorld physics = FXGL.getPhysicsWorld();
 
 
-        physics.addCollisionHandler(new CollisionHandler(OgettiGioco.player, OgettiGioco.palina) {
+        //Alla collisione della palina con la racchetta lei rimbalza
+        physics.addCollisionHandler(new CollisionHandler(OgettiGioco.racchetta, OgettiGioco.palina) {
             @Override
-            protected void onCollisionBegin(Entity player, Entity palina) {
-                direzionePalinaVe *= -1;
-            }
-        });
-
-        physics.addCollisionHandler(new CollisionHandler(OgettiGioco.enemy, OgettiGioco.palina) {
-            @Override
-            protected void onCollisionBegin(Entity enemy, Entity palina) {
+            protected void onCollisionBegin(Entity racheta, Entity palina) {
                 direzionePalinaVe *= -1;
             }
         });
 
 
+        //Alla collisione della palina con la parete la palina rimbalza
         physics.addCollisionHandler(new CollisionHandler(OgettiGioco.palina, OgettiGioco.wall) {
             @Override
             protected void onCollisionBegin(Entity wallL, Entity palina) {
                 direzionePalinaOr *= -1;
             }
         });
-
-        /*
-        physics.addCollisionHandler(new CollisionHandler(OgettiGioco.enemy, OgettiGioco.wall) {
-            @Override
-            protected void onCollisionBegin(Entity enemy, Entity wall) {
-                enemy.translateX(-50);
-            }
-        });
-
-         */
 
 
     }

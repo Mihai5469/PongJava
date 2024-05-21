@@ -14,7 +14,7 @@ public class Factory implements EntityFactory {
     @Spawns("player")
     public Entity newPlayer(SpawnData data){
         return FXGL.entityBuilder(data)
-                .type(OgettiGioco.player)
+                .type(OgettiGioco.racchetta)
                 .viewWithBBox(new Rectangle(100, 10, Color.BLUE))
                 //.with(new PlayerComponent())
                 .collidable()
@@ -34,7 +34,7 @@ public class Factory implements EntityFactory {
     @Spawns("enemy")
     public Entity newEnemy(SpawnData data){
         return FXGL.entityBuilder(data)
-                .type(OgettiGioco.enemy)
+                .type(OgettiGioco.racchetta)
                 .viewWithBBox(new Rectangle(100, 10, Color.BLUE))
                 .collidable()
                 .build();
