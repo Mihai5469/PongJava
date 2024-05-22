@@ -57,6 +57,7 @@ public class PongApp extends GameApplication {
                 enemy.setX(palina.getX() - 50);
             }
 
+
             }, Duration.millis(3));
     }
 
