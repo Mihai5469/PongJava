@@ -7,7 +7,11 @@ import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.physics.CollisionHandler;
 import com.almasb.fxgl.physics.PhysicsWorld;
 import javafx.scene.input.KeyCode;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
+
+import java.util.Map;
 
 import static com.almasb.fxgl.dsl.FXGLForKtKt.*;
 
@@ -20,7 +24,6 @@ public class PongApp extends GameApplication {
     private Entity enemy;
     private Entity wallR;
     private Entity wallL;
-    private int score = 0;
 
     @Override
     protected void initSettings(GameSettings gameSettings) {
@@ -28,6 +31,13 @@ public class PongApp extends GameApplication {
         gameSettings.setHeight(600);
         gameSettings.setTitle("Pong");
         gameSettings.setVersion("0.1");
+    }
+
+
+    @Override
+    protected void initGameVars(Map<String, Object> vars){
+        vars.put("score", 0);
+
     }
 
     @Override
@@ -47,8 +57,9 @@ public class PongApp extends GameApplication {
 
             //Controllo posizione palina
             if(palina.getY() > FXGL.getAppHeight()){
-                score += 1;
-                System.out.println("Il punteggio e : " +score);
+                FXGL.inc("score", 1);
+                //score += 1;
+                //System.out.println("Il punteggio e : " + FXGL.getWorldProperties().intProperty("score"));
                 palina.setX(FXGL.getAppWidth()/2);
                 palina.setY(FXGL.getAppHeight()/2);
             }
@@ -103,7 +114,19 @@ public class PongApp extends GameApplication {
             }
         });
 
+    }
 
+    @Override
+    protected void initUI() {
+        Text textPixels = new Text();
+        textPixels.setFont(Font.font("Arial", 18));
+        textPixels.setTranslateX(50); // x = 50
+        textPixels.setTranslateY(50); // y = 100
+
+        textPixels.textProperty().bind(FXGL.getWorldProperties().
+                intProperty("score").asString());
+
+        FXGL.getGameScene().addUINode(textPixels); // add to the screen
     }
 
 
